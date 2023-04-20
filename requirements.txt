@@ -1,0 +1,8 @@
+flask
+sqlalchemy
+plotly
+pandas
+numpy
+joblib
+pillow
+plotly
