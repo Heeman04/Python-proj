@@ -109,3 +109,7 @@ a{
     color: var(--link-color);
     font-size: 14px;
 }
+
+#page-top{
+    filter:blur(20px);
+}

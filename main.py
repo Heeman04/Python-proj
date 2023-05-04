@@ -1,5 +1,4 @@
 from flask.globals import request
-import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy import engine
 from sqlalchemy.orm import sessionmaker
@@ -13,7 +12,7 @@ app.secret_key = "the basics of life with python"
 
 
 def get_db():
-    engine = create_engine('sqlite:///database\\\\\\\\\\\.db')
+    engine = create_engine('sqlite:///database.sqlite')
     Session = scoped_session(sessionmaker(bind=engine))
     return Session()
 
@@ -29,7 +28,7 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        if email and email(email):
+        if email and email:
             if password and len(password)>=6:
                 try:
                     sess = get_db()
@@ -58,7 +57,7 @@ def signup():
         password = request.form.get('password')
         cpassword = request.form.get('cpassword')
         if name and len(name) >= 3:
-            if email and email(email):
+            if email and email:
                 if password and len(password)>=6:
                     if cpassword and cpassword == password:
                         try:
@@ -68,7 +67,7 @@ def signup():
                             sess.commit()
                             del sess
                             flash('hurray!registration successful.','success')
-                            return redirect('/')
+                            return redirect('/signup')
                         except:
                             flash('*email account already exists','danger')
                     else:
@@ -87,9 +86,9 @@ def forgot():
 
 @app.route('/home',methods=['GET','POST'])
 def home():
-    if session.get('isauth'):
+    if session['isauth']:
         username = session.get('name')
-        return render_template('upload.html',title=f'Home|{username}')
+        return render_template('index.html',title=f'Home|{username}')
     else :
          return render_template('home.html')
    

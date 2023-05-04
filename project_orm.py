@@ -23,5 +23,5 @@ class User(Base):
 
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///database.db')
+    engine = create_engine('sqlite:///database.sqlite')
     Base.metadata.create_all(engine)
